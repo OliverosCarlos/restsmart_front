@@ -1,0 +1,73 @@
+<mat-tab-group col-12>
+  <mat-tab label="Extras"> 
+
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-body"> 
+          <div *ngFor="let ingredienteExtra of ingredientesExtras">
+            <div class="row">
+              <div class="col-5 col-md-4 row-name">
+                {{ingredienteExtra.nombre_ingrediente}}
+              </div>
+              <div class="col-3 col-md-4 row-description">
+                ${{ingredienteExtra.precio}}
+              </div>
+              <div class="col-4 col-md-2 row-img">
+                <img src="assets/{{ingredienteExtra.url_img_ingrediente}}" alt="">
+              </div>
+              <div class="col-12 col-md-2 row-action">
+                <!-- <button mat-stroked-button color="primary" [routerLink]="['config',categoria.id_categoria]" >Configurar</button>
+                <button mat-stroked-button color="accent" (click)="onEditCategoria(categoria)">Editar</button>
+                <button mat-stroked-button color="warn" (click)="onDeleteCategoria(categoria.id_categoria)">Eliminar</button> -->
+              </div>
+            </div>
+            <hr>
+          </div>
+          <div class="col-12 col-md-7">
+            <div class="button-group">
+              <button type="button" title="Agregar nuevo registro" (click)="onConfigIngredienteExtra()"
+                class="btn btn-outline-success waves-effect waves-light addButton btn-block">
+                <span class="btn-label"><i class="fa fa-plus"></i></span>Configurar ingrediente</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </mat-tab>
+  <!--INGREDIENTES  -->
+  <mat-tab label="Excepciones">
+
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-body">
+          <div *ngFor="let sinIngrediente of sinIngredientes">
+            <div class="row">
+              <div class="col-6 col-md-4 row-name">
+                {{sinIngrediente.nombre_ingrediente}}
+              </div>
+              <div class="col-4 col-md-2 row-img">
+                <img src="assets/{{sinIngrediente.url_img_ingrediente}}" alt="">
+              </div>
+              <div class="col-12 col-md-2 row-action">
+                <!-- <button mat-stroked-button color="primary" [routerLink]="['config',categoria.id_categoria]" >Configurar</button>
+                <button mat-stroked-button color="accent" (click)="onEditCategoria(categoria)">Editar</button>
+                <button mat-stroked-button color="warn" (click)="onDeleteCategoria(categoria.id_categoria)">Eliminar</button> -->
+              </div>
+            </div>
+            <hr>
+          </div>
+          <div class="col-12 col-md-7">
+            <div class="button-group">
+              <button type="button" title="Agregar nuevo registro" (click)="onConfigSinIngrediente()"
+                class="btn btn-outline-success waves-effect waves-light addButton btn-block">
+                <span class="btn-label"><i class="fa fa-plus"></i></span>Configurar ingrediente</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </mat-tab>
+</mat-tab-group>
+

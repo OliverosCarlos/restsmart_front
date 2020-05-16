@@ -1,0 +1,50 @@
+<div class="modal-header" *ngIf="modalConfig">
+    <h3 class="modal-title">{{modalConfig.title}}</h3>
+    <button type="button" class="close" style="cursor:pointer;" (click)="onClose()" aria-hidden="true">×</button>
+</div>
+<div class="modal-body" *ngIf="modalConfig">
+    <form [formGroup]="ingredienteForm" (ngSubmit)="formValid()" #formDir="ngForm">
+        <div class="row">
+            <div class="col-md-12">
+                <mat-form-field class="col-md-12">
+                    <mat-label>Nombre ingrediente</mat-label>
+                    <input matInput formControlName="name_ingredient" [errorStateMatcher]="matcher"
+                        placeholder="Nombre del ingrediente ">
+                    <mat-error>
+                        Nombre de ingrediente <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <br>
+            <div class="col-md-12">
+                <mat-form-field class="col-md-12">
+                    <mat-label>Descripcion ingrediente</mat-label>
+                    <input matInput formControlName="description_ingredient" [errorStateMatcher]="matcher"
+                        placeholder="Descripcion de tu ingrediente">
+
+                    <mat-error>
+                        Descripcion de ingrediente <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <br>
+
+            <div class="image-preview">
+                <img id="imagePreview" [src]="imagePreview != null ? imagePreview :
+                        !modalConfig.create ? '/assets/'+imgEdit :
+                       '/assets/no-imagen.png' " class="card-img-top">
+            </div>
+            <!-- formControlName="url_img_ingrediente" -->
+            <input name="image" style="display: none"  type="file"
+                (change)="onFileUpload($event)" #fileInput>
+            <button *ngIf="modalConfig.create" (click)="fileInput.click()">Seleccionar imagen</button>
+            <button *ngIf="!modalConfig.create" (click)="fileInput.click()">Seleccionar otra imagen</button>
+        </div>
+        <div class="modal-footer row">
+            <button type="submit" class="col btn waves-effect waves-light btn-rounded btn-outline-info pull-left"
+                [disabled]="!ingredienteForm.valid">Guardar</button>
+            <button type="button" class="col btn waves-effect waves-light btn-rounded btn-outline-danger"
+                (click)="onClose()">Cancelar</button>
+        </div>
+    </form>
+</div>

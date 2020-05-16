@@ -44,3 +44,9 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# npm
+package-lock.json
+
+# environment variables
+.env

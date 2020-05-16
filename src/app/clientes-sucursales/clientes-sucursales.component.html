@@ -1,0 +1,61 @@
+<nav class="navbar navbar-expand-sm navbar-light " *ngIf="bigWindow">
+  <a class="navbar-brand" [routerLink]="['home']">
+    <!-- <img src="../../../assets/logo-nav.png" alt="" width="125.5" height="40.986" /> -->
+    <!-- <img
+      src="../../assets/icons/menu-list.png"
+      alt=""
+      width="91.335"
+      height="29.828"
+    /> -->
+  </a>
+
+  <ul class="navbar-nav">
+    <li class="nav-item">
+       <a class="nav-link" routerLink="all"><img src="../../../assets/home.png" alt=""> Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="all"><img src="../../../assets/team.png" alt=""> Nosotros</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="all"><img src="../../../assets/bookmark-service.png" alt=""> Servicios</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="all"><img src="../../../assets/briefcase.png" alt=""> Portafolio</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="all"><img src="../../../assets/contact.png" alt=""> Contacto</a>
+    </li>
+  </ul>
+</nav>
+
+<nav class="col-12 p-3 clearfix" *ngIf="smallWindow">
+  <div class="float-left">
+    <a class="navbar-brand" [routerLink]="['home']">
+      <!-- <img
+        src="../../assets/icons/menu-list.png"
+        alt=""
+        width="150.335"
+        height="49.828"
+      /> -->
+    </a>
+  </div>
+  <div class="float-right">
+    <i
+      class="fas fa-bars fa-lg "
+      style="color: #00A76B;"
+      (click)="openNav()"
+    ></i>
+  </div>
+</nav>
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
+  <a routerLink="all" (click)="closeNav()">Home</a>
+  <a routerLink="all" (click)="closeNav()">Nosotros</a>
+  <a routerLink="all" (click)="closeNav()">Servicios</a>
+  <a routerLink="all" (click)="closeNav()">Portafolio</a>
+  <a routerLink="all" (click)="closeNav()">contacto</a>
+</div>
+
+<router-outlet></router-outlet>
+

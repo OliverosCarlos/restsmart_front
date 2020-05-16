@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <div class="header-news">News</div>
+  <div class="c-news c-content">
+    <div class="card" *ngFor="let new of news">
+      <img class="card-img-bottom" src="../../../assets/New-Products-Summer.png" alt="">
+      <div class="card-body">
+        <h4 class="card-title">Title</h4>
+        <p class="card-text">Descripcion.</p>
+        <a href="#" class="btn btn-primary">Agregar al carrito</a>
+      </div>
+    </div>
+  </div>
+  <div class="header-products">
+    Productos
+  </div>
+  <div class="c-products c-content">
+    <div class="card" *ngFor="let product of products">
+      <img class="card-img-bottom" src="assets/{{product.url_img_producto}}" alt="">
+      <div class="card-body">
+        <h4 class="card-title">{{product.nombre_producto}}</h4>
+        <p class="card-text">{{product.descripcion_producto}}</p>
+        <a href="#" class="btn btn-primary">Agregar al carrito</a>
+      </div>
+    </div>
+  </div>
+  <div class="header-branch-offices">
+    Sucursales
+  </div>
+  <div class="c-branch-offices c-content">
+    <div class="card" *ngFor="let sucursal of sucursales">
+      <img class="card-img-bottom" src="assets/{{sucursal.url_img_sucursal}}" alt="">
+      <div class="card-body">
+        <h4 class="card-title">{{sucursal.nombre_sucursal}}</h4>
+        <p class="card-text">{{sucursal.descripcion_sucursal}}</p>
+      </div>
+      <div class="card-footer">
+        <a href="#" class="btn btn-info btn-block">ir a sucursal</a>
+      </div>
+    </div>
+  </div>
+</div>

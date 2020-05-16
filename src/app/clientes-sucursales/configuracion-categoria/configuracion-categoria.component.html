@@ -1,0 +1,36 @@
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-body">
+  
+      <div *ngFor="let product of products">
+        <div class="row">
+          <div class="col-12 col-md-4 row-name">
+            {{product.name_product}}
+          </div>
+          <div class="col-12 col-md-4 row-description">
+            {{product.description_product}}
+          </div>
+          <div class="col-12 col-md-4 row-description">
+            {{product.price_product}}
+          </div>
+          <div class="col-12 col-md-2 row-img">
+            <img src="assets/{{product.url_image_product}}" alt="">
+          </div>
+          <div class="col-12 col-md-2 row-action">
+            <button mat-stroked-button color="primary" [routerLink]="['config',product._id]" >Configurar</button>
+            <button mat-stroked-button color="accent" (click)="onEdit(product)">Editar</button>
+            <button mat-stroked-button color="warn" (click)="onDelete(product._id)">Eliminar</button>
+          </div>
+        </div>
+        <hr>
+      </div>
+      <div class="col-12 col-md-7">
+        <div class="button-group">
+          <button type="button" title="Agregar nuevo registro" (click)="onCreate()"
+            class="btn btn-outline-success waves-effect waves-light addButton btn-block">
+            <span class="btn-label"><i class="fa fa-plus"></i></span>Agregar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

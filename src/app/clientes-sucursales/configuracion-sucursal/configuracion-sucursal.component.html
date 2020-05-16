@@ -1,0 +1,73 @@
+<mat-tab-group col-12>
+  <mat-tab label="Categorias"> 
+
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-body"> 
+          <div *ngFor="let category of categories">
+            <div class="row">
+              <div class="col-12 col-md-4 row-name">
+                {{category.name_category}}
+              </div>
+              <div class="col-12 col-md-4 row-description">
+                {{category.description_category}}
+              </div>
+              <div class="col-12 col-md-2 row-action">
+                <button mat-stroked-button color="primary" [routerLink]="['config',category._id]" >Configurar</button>
+                <button mat-stroked-button color="accent" (click)="onEditCategoria(category)">Editar</button>
+                <button mat-stroked-button color="warn" (click)="onDeleteCategoria(category._id)">Eliminar</button>
+              </div>
+            </div>
+            <hr>
+          </div>
+          <div class="col-12 col-md-7">
+            <div class="button-group">
+              <button type="button" title="Agregar nuevo registro" (click)="onCreateCategoria()"
+                class="btn btn-outline-success waves-effect waves-light addButton btn-block">
+                <span class="btn-label"><i class="fa fa-plus"></i></span>Agregar categoria</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </mat-tab>
+  <!--INGREDIENTES  -->
+  <mat-tab label="Ingredientes">
+
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-body">
+          <div *ngFor="let ingredient of ingredients">
+            <div class="row">
+              <div class="col-12 col-md-4 row-name">
+                {{ingredient.name_ingredient}}
+              </div>
+              <div class="col-12 col-md-4 row-description">
+                {{ingredient.description_ingredient}}
+              </div>
+              <div class="col-12 col-md-2 row-img">
+                <img src="assets/{{ingredient.url_image_ingredient}}" alt="">
+              </div>
+              <div class="col-12 col-md-2 row-action">
+                <button mat-stroked-button color="primary" [routerLink]="['config',ingredient._id]" >Configurar</button>
+                <button mat-stroked-button color="accent" (click)="onEditIngrediente(ingredient)">Editar</button>
+                <button mat-stroked-button color="warn" (click)="onDeleteIngrediente(ingredient._id)">Eliminar</button>
+              </div>
+            </div>
+            <hr>
+          </div>
+          <div class="col-12 col-md-7">
+            <div class="button-group">
+              <button type="button" title="Agregar nuevo registro" (click)="onCreateIngrediente()"
+                class="btn btn-outline-success waves-effect waves-light addButton btn-block">
+                <span class="btn-label"><i class="fa fa-plus"></i></span>Agregar ingrediente</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </mat-tab>
+</mat-tab-group>
+
