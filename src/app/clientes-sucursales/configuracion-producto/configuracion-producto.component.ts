@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { PATH } from 'src/app/utils/enums/pathRequest.enum';
+import { ADMIN_PATH } from 'src/app/utils/enums/pathRequest.enum';
 import { DevServiceService } from 'src/app/providers/dev-service.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
@@ -15,7 +15,7 @@ import { FormSinIngredienteModalComponent } from '../modals/form-sin-ingrediente
 export class ConfiguracionProductoComponent implements OnInit {
   bsModalRef: BsModalRef;
 
-  ingredientesExtras:any = [];
+  ingredientsExtras:any = [];
   sinIngredientes:any = [];
   id_producto = '';
   id_sucursal = '';
@@ -36,11 +36,10 @@ export class ConfiguracionProductoComponent implements OnInit {
   }
 
   getIngredientesExtrasByProducto(){
-    this.devService.requestBy(PATH.PRODUCTOS_INGREDIENTES_EXTRAS,this.id_producto)
+    this.devService.requestBy(ADMIN_PATH.PRODUCTS_INGREDIENTS_EXTRAS+'/by-product',this.id_producto)
       .subscribe(
         res => {
-          this.ingredientesExtras = res;
-          console.log(res);
+          this.ingredientsExtras = res;
         },
         err => console.error(err)
       );
@@ -50,7 +49,7 @@ export class ConfiguracionProductoComponent implements OnInit {
     this.openModalConfigIngredienteExtra(
       'Configurar ingrediente extra',
       true,
-      PATH.PRODUCTOS_INGREDIENTES_EXTRAS,
+      ADMIN_PATH.PRODUCTS_INGREDIENTS_EXTRAS,
       {
         id_producto:this.id_producto,
         id_sucursal:this.id_sucursal
@@ -58,29 +57,35 @@ export class ConfiguracionProductoComponent implements OnInit {
     );
   }
 
-  onEditConfigIngredienteExtra(data){
-    this.openModalConfigIngredienteExtra('Editar ingrediente extra',false,PATH.PRODUCTOS_INGREDIENTES_EXTRAS,data);
+  onEditExtraIngredient(id_ingredient,price_ingredient){
+    this.openModalConfigIngredienteExtra('Editar ingrediente extra',false,ADMIN_PATH.PRODUCTS_INGREDIENTS_EXTRAS,
+    {
+      id_product:this.id_producto,
+      id_ingredient: id_ingredient,
+      price_ingredient: price_ingredient
+    });
   }
 
-  // onDeleteConfigIngredienteExtra(id_categoria){
-  //  try {
-  //    this.devService.requestDelete(PATH.CATEGORIAS,id_categoria)
-  //    .subscribe(
-  //      res => {
-  //        this.getIngredientesExtrasByProducto();
-  //      },
-  //      err => console.error(err)
-  //    )
-  //  } catch (error) {
-  //    console.log(error);
-  //  }
-  // }
+  onDeleteExtraIngredient(id_ingredient){
+   try {
+     this.devService.requestDeleteParams(ADMIN_PATH.PRODUCTS_INGREDIENTS_EXTRAS,this.id_producto,id_ingredient)
+     .subscribe(
+       res => {
+         this.getIngredientesExtrasByProducto();
+       },
+       err => console.error(err)
+     )
+   } catch (error) {
+     console.log(error);
+   }
+  }
 
   getSinIngredientesByProducto(){
-    this.devService.requestBy(PATH.PRODUCTOS_SIN_INGREDIENTES,this.id_producto)
+    this.devService.requestBy(ADMIN_PATH.PRODUCTS_WITHOUT_INGREDIENTS+'/by-product',this.id_producto)
       .subscribe(
         res => {
           this.sinIngredientes = res;
+          console.log(res);
         },
         err => console.error(err)
       );
@@ -90,7 +95,7 @@ export class ConfiguracionProductoComponent implements OnInit {
     this.openModalConfigSinIngrediente(
       'Configurar excepción',
       true,
-      PATH.PRODUCTOS_SIN_INGREDIENTES,
+      ADMIN_PATH.PRODUCTS_WITHOUT_INGREDIENTS,
       {
         id_producto:this.id_producto,
         id_sucursal:this.id_sucursal
@@ -98,23 +103,19 @@ export class ConfiguracionProductoComponent implements OnInit {
     );
   }
 
-  onEditConfigSinIngrediente(data){
-    this.openModalConfigSinIngrediente('Editar Configuración excepción',false,PATH.PRODUCTOS_SIN_INGREDIENTES,data);
+  onDeleteWithoutIngredient(id_ingredient){
+    try {
+      this.devService.requestDeleteParams(ADMIN_PATH.PRODUCTS_WITHOUT_INGREDIENTS,this.id_producto,id_ingredient)
+      .subscribe(
+        res => {
+          this.getSinIngredientesByProducto();
+        },
+        err => console.error(err)
+      )
+    } catch (error) {
+      console.log(error);
+    }
   }
-
-  // onDeleteIngrediente(id_categoria){
-  //  try {
-  //    this.devService.requestDelete(PATH.CATEGORIAS,id_categoria)
-  //    .subscribe(
-  //      res => {
-  //        this.getIngredientesExtrasByProducto();
-  //      },
-  //      err => console.error(err)
-  //    )
-  //  } catch (error) {
-  //    console.log(error);
-  //  }
-  // }
 
 
   private openModalConfigIngredienteExtra(title: string, create: boolean, requestPath: string, data?: any) {

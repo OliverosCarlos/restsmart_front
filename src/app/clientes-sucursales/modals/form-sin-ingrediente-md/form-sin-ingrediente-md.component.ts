@@ -7,7 +7,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 // import { CrudService } from 'src/app/providers/api/crud.service';
 // import { Router } from '@angular/router';
 // import { Handler } from 'src/app/utils/handler';
-import { PATH } from 'src/app/utils/enums/pathRequest.enum';
+import { ADMIN_PATH } from 'src/app/utils/enums/pathRequest.enum';
 import { DevServiceService } from 'src/app/providers/dev-service.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class FormSinIngredienteModalComponent implements OnInit {
 
     modalConfig: ModalConfig;
     sinIngredienteForm: FormGroup;
-    ingredientes:any = []
+    ingredients:any = []
     @Output() action = new EventEmitter();
 
 
@@ -31,26 +31,25 @@ export class FormSinIngredienteModalComponent implements OnInit {
     ) {
         this.modalConfig = this.modalService.config.initialState;
         this.sinIngredienteForm = new FormGroup({
-            id_producto: new FormControl(this.modalConfig.data.id_producto),
-            id_ingrediente: new FormControl('',Validators.required),
+            id_product: new FormControl(this.modalConfig.data.id_producto),
+            id_ingredient: new FormControl('',Validators.required),
         });
     }
 
     get IForm() { return this.sinIngredienteForm.controls; }
 
     ngOnInit() {
-        if (this.modalConfig.data) {
-            this.sinIngredienteForm.get('id_producto').setValue(this.modalConfig.data.id_producto);
-            this.sinIngredienteForm.get('id_ingrediente').setValue(this.modalConfig.data.id_ingrediente);
-        }
+        console.log({data:this.modalConfig});
         this.getIngredientesBySucursal();
     }
 
+
     getIngredientesBySucursal(){
-        this.devService.requestBy(PATH.INGREDIENTES+'/por-sucursal',this.modalConfig.data.id_sucursal)
+        this.devService.requestBy(ADMIN_PATH.INGREDIENTS+'/by-branch-office',this.modalConfig.data.id_sucursal)
           .subscribe(
             res => {
-              this.ingredientes = res;
+                console.log(res);
+                this.ingredients = res;
             },
             err => console.error(err)
           );
@@ -61,7 +60,6 @@ export class FormSinIngredienteModalComponent implements OnInit {
     }
 
     save() {
-        console.log(this.sinIngredienteForm);
         this.devService.requestBody(this.modalConfig.requestPath, this.sinIngredienteForm.value).subscribe(
             res => {
                 this.action.emit();

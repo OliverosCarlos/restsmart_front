@@ -3,7 +3,7 @@ export enum ADMIN_PATH{
     CATEGORIES = 'admin/categories',
     PRODUCTS = 'admin/products',
     INGREDIENTS = 'admin/ingredients',
-    PRODUCTS_INGREDIENTS_EXTRAS = 'admin/products_ingredients_extras',
+    PRODUCTS_INGREDIENTS_EXTRAS = 'admin/products_extra_ingredients',
     PRODUCTS_WITHOUT_INGREDIENTS = 'admin/products_without_ingredients'
 }
 

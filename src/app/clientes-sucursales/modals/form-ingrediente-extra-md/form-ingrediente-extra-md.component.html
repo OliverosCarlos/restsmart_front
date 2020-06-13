@@ -5,23 +5,22 @@
 <div class="modal-body" *ngIf="modalConfig">
     <form [formGroup]="ingredienteExtraForm" (ngSubmit)="formValid()" #formDir="ngForm">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12" *ngIf="modalConfig.create">
                 <mat-form-field class="col-md-12">
                     <mat-label>Seleccionar ingrediente</mat-label>
-                    <mat-select formControlName="id_ingrediente" required>
-                        <mat-option *ngFor="let ingrediente of ingredientes" [value]="ingrediente.id_ingrediente">
-                            {{ingrediente.nombre_ingrediente}}
+                    <mat-select formControlName="id_ingredient" required>
+                        <mat-option *ngFor="let ingredient of ingredients" [value]="ingredient._id">
+                            {{ingredient.name_ingredient}}
                         </mat-option>
                     </mat-select>
-                    <mat-error *ngIf="IForm.id_ingrediente.hasError('required')">Porfavor, seleccionar ingrediente</mat-error>
-                    <!-- <mat-hint>{{animalControl.value?.sound}}</mat-hint> -->
+                    <mat-error *ngIf="IForm.id_ingredient.hasError('required')">Porfavor, seleccionar ingrediente</mat-error>
                 </mat-form-field>
             </div>
             <br>
             <div class="col-md-12">
                 <mat-form-field class="col-md-12">
                     <mat-label>Precio</mat-label>
-                    <input matInput formControlName="precio" [errorStateMatcher]="matcher"
+                    <input matInput formControlName="price_ingredient" [errorStateMatcher]="matcher"
                         placeholder="precio ingrediente extra">
 
                     <mat-error>

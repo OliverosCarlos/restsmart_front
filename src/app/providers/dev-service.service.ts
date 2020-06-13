@@ -38,8 +38,16 @@ export class DevServiceService {
     return this.http.delete(`${this.API_URI}/${route}/${id}`);
   }
 
+  requestDeleteParams(route,id1: string, id2: string) {
+    return this.http.delete(`${this.API_URI}/${route}/${id1}/${id2}`);
+  }
+
   requestBodyBy(route, body: any, id: string|number): Observable<any> {
     return this.http.put(`${this.API_URI}/${route}/${id}`, body);
+  }
+
+  requestBodyByParams(route, body: any, id1: string|number, id2: string|number): Observable<any> {
+    return this.http.put(`${this.API_URI}/${route}/${id1}/${id2}`, body);
   }
 
 }

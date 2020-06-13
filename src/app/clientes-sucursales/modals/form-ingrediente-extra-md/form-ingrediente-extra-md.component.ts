@@ -7,7 +7,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 // import { CrudService } from 'src/app/providers/api/crud.service';
 // import { Router } from '@angular/router';
 // import { Handler } from 'src/app/utils/handler';
-import { PATH } from 'src/app/utils/enums/pathRequest.enum';
+import { ADMIN_PATH } from 'src/app/utils/enums/pathRequest.enum';
 import { DevServiceService } from 'src/app/providers/dev-service.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class FormIngredienteExtraModalComponent implements OnInit {
 
     modalConfig: ModalConfig;
     ingredienteExtraForm: FormGroup;
-    ingredientes:any = []
+    ingredients:any = []
     @Output() action = new EventEmitter();
 
 
@@ -31,27 +31,28 @@ export class FormIngredienteExtraModalComponent implements OnInit {
     ) {
         this.modalConfig = this.modalService.config.initialState;
         this.ingredienteExtraForm = new FormGroup({
-            id_producto: new FormControl(this.modalConfig.data.id_producto),
-            id_ingrediente: new FormControl('',Validators.required),
-            precio: new FormControl(null, [Validators.required, Validators.maxLength(250)]),
+            id_product: new FormControl(this.modalConfig.data.id_producto),
+            id_ingredient: new FormControl('',Validators.required),
+            price_ingredient: new FormControl(null, [Validators.required, Validators.maxLength(250)]),
         });
     }
 
     get IForm() { return this.ingredienteExtraForm.controls; }
 
     ngOnInit() {
-        if (this.modalConfig.data) {
-            this.ingredienteExtraForm.get('id_producto').setValue(this.modalConfig.data.id_producto);
-            this.ingredienteExtraForm.get('id_ingrediente').setValue(this.modalConfig.data.id_ingrediente);
+        if (this.modalConfig.create) {
+            this.ingredienteExtraForm.get('id_product').setValue(this.modalConfig.data.id_producto);
+            this.ingredienteExtraForm.get('id_ingredient').setValue(this.modalConfig.data.id_ingredient);
+            this.ingredienteExtraForm.get('price_ingredient').setValue(this.modalConfig.data.price_ingredient);
         }
         this.getIngredientesBySucursal();
     }
 
     getIngredientesBySucursal(){
-        this.devService.requestBy(PATH.INGREDIENTES+'/por-sucursal',this.modalConfig.data.id_sucursal)
+        this.devService.requestBy(ADMIN_PATH.INGREDIENTS+'/by-branch-office',this.modalConfig.data.id_sucursal)
           .subscribe(
             res => {
-              this.ingredientes = res;
+                this.ingredients = res;
             },
             err => console.error(err)
           );
@@ -62,7 +63,7 @@ export class FormIngredienteExtraModalComponent implements OnInit {
     }
 
     save() {
-        console.log(this.ingredienteExtraForm);
+        console.log(this.ingredienteExtraForm.value);
         this.devService.requestBody(this.modalConfig.requestPath, this.ingredienteExtraForm.value).subscribe(
             res => {
                 this.action.emit();
@@ -70,17 +71,16 @@ export class FormIngredienteExtraModalComponent implements OnInit {
             },
             err => console.error(err)
         );
-
     }
 
     update() {
-        // this.devService.requestBodyBy(this.modalConfig.requestPath, this.ingredienteExtraForm, this.modalConfig.data.id_sucursal).subscribe(
-        //     res => {
-        //         this.action.emit();
-        //         this.modalRef.hide();
-        //     },
-        //     err => console.error(err)
-        // );
+        this.devService.requestBodyByParams(this.modalConfig.requestPath, this.ingredienteExtraForm.value, this.modalConfig.data.id_product, this.modalConfig.data.id_ingredient).subscribe(
+            res => {
+                this.action.emit();
+                this.modalRef.hide();
+            },
+            err => console.error(err)
+        );
     }
 
     onClose() {

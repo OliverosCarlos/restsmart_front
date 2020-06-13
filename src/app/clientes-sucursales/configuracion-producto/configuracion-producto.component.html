@@ -4,21 +4,20 @@
     <div class="container-fluid">
       <div class="card">
         <div class="card-body"> 
-          <div *ngFor="let ingredienteExtra of ingredientesExtras">
+          <div *ngFor="let ingredientExtra of ingredientsExtras.extra_ingredients">
             <div class="row">
               <div class="col-5 col-md-4 row-name">
-                {{ingredienteExtra.nombre_ingrediente}}
+                {{ingredientExtra.id_ingredient.name_ingredient}}
               </div>
               <div class="col-3 col-md-4 row-description">
-                ${{ingredienteExtra.precio}}
+                ${{ingredientExtra.price_ingredient}}
               </div>
               <div class="col-4 col-md-2 row-img">
-                <img src="assets/{{ingredienteExtra.url_img_ingrediente}}" alt="">
+                <img src="assets/{{ingredientExtra.id_ingredient.url_image_ingredient}}" alt="">
               </div>
               <div class="col-12 col-md-2 row-action">
-                <!-- <button mat-stroked-button color="primary" [routerLink]="['config',categoria.id_categoria]" >Configurar</button>
-                <button mat-stroked-button color="accent" (click)="onEditCategoria(categoria)">Editar</button>
-                <button mat-stroked-button color="warn" (click)="onDeleteCategoria(categoria.id_categoria)">Eliminar</button> -->
+                <button mat-stroked-button color="warn" (click)="onDeleteExtraIngredient(ingredientExtra.id_ingredient._id)">Eliminar</button>
+                <button mat-stroked-button color="accent" (click)="onEditExtraIngredient(ingredientExtra.id_ingredient._id,ingredientExtra.price_ingredient)">Editar</button>
               </div>
             </div>
             <hr>
@@ -41,18 +40,16 @@
     <div class="container-fluid">
       <div class="card">
         <div class="card-body">
-          <div *ngFor="let sinIngrediente of sinIngredientes">
+          <div *ngFor="let sinIngrediente of sinIngredientes.without_ingredients">
             <div class="row">
               <div class="col-6 col-md-4 row-name">
-                {{sinIngrediente.nombre_ingrediente}}
+                {{sinIngrediente.id_ingredient.name_ingredient}}
               </div>
               <div class="col-4 col-md-2 row-img">
-                <img src="assets/{{sinIngrediente.url_img_ingrediente}}" alt="">
+                <img src="assets/{{sinIngrediente.id_ingredient.url_image_ingredient}}" alt="">
               </div>
               <div class="col-12 col-md-2 row-action">
-                <!-- <button mat-stroked-button color="primary" [routerLink]="['config',categoria.id_categoria]" >Configurar</button>
-                <button mat-stroked-button color="accent" (click)="onEditCategoria(categoria)">Editar</button>
-                <button mat-stroked-button color="warn" (click)="onDeleteCategoria(categoria.id_categoria)">Eliminar</button> -->
+                <button mat-stroked-button color="warn" (click)="onDeleteWithoutIngredient(sinIngrediente.id_ingredient._id)">Eliminar</button>
               </div>
             </div>
             <hr>
